@@ -158,7 +158,7 @@ const CategoryProfile = () => {
             <AlertDialogContent>
               <AlertDialogTitle>Confirmar Exclusão</AlertDialogTitle>
               <AlertDialogDescription>
-                Tem certeza de que deseja excluir este chamado? Esta ação não
+                Tem certeza de que deseja excluir esta categoria? Esta ação não
                 pode ser desfeita.
               </AlertDialogDescription>
               <div className="flex gap-4 justify-end">

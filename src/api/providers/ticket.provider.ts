@@ -60,11 +60,13 @@ export async function findTicket(id: string): Promise<ITicket | ApiError> {
   }
 }
 
-export async function findTicketByStatus(
+export async function findTicketsByStatus(
   status_id: string,
 ): Promise<ITicket[] | ApiError> {
   try {
-    const response = await backendApi.get<ITicket[]>(`/tickets/${status_id}`)
+    const response = await backendApi.get<ITicket[]>(
+      `/tickets/status/${status_id}`,
+    )
     return response.data
   } catch (error) {
     return {
@@ -107,6 +109,18 @@ export async function getAllStatuses(): Promise<IStatus[] | ApiError> {
   } catch (error) {
     return {
       errorMessage: 'Erro ao buscar os status: ' + error,
+      status: 500,
+    } as ApiError
+  }
+}
+
+export async function getSLA(): Promise<any | ApiError> {
+  try {
+    const response = await backendApi.get<any>(`/tickets/sla`)
+    return response.data
+  } catch (error) {
+    return {
+      errorMessage: 'Erro ao buscar métrica sla: ' + (error as Error).message,
       status: 500,
     } as ApiError
   }
