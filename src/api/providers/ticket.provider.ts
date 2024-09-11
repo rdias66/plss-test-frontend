@@ -6,6 +6,13 @@ export interface ITicket {
   description: string
   category_id: string
   status_id?: string
+  created_at?: Date
+  solved_at?: Date
+}
+
+export interface IStatus {
+  id?: string
+  name: string
 }
 
 export interface IUpdateTicket {
@@ -89,5 +96,18 @@ export async function deleteTicket(id: string): Promise<void> {
   } catch (error) {
     console.error(`Erro ao deletar ticket`, error)
     throw error
+  }
+}
+
+export async function getAllStatuses(): Promise<IStatus[] | ApiError> {
+  try {
+    const response = await backendApi.get<IStatus[]>('/statuses')
+
+    return response.data
+  } catch (error) {
+    return {
+      errorMessage: 'Erro ao buscar os status: ' + error,
+      status: 500,
+    } as ApiError
   }
 }

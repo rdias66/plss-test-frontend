@@ -3,6 +3,7 @@ import { ApiError, backendApi } from '../backendApi'
 export interface ICategory {
   id?: string
   name: string
+  created_at?: Date
 }
 
 export interface IUpdateCategory {
