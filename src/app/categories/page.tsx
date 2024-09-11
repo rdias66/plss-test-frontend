@@ -1,3 +1,4 @@
+'use client'
 import { getAllCategories, ICategory } from '@/api/providers/category.provider'
 import { useEffect, useState } from 'react'
 import {
@@ -36,7 +37,7 @@ const Categories: React.FC = () => {
   })
   return (
     <div>
-      <h1 className="text-2xl font-semibold mb-4">Ticket List</h1>
+      <h1 className="text-2xl font-semibold mb-4">Categorias</h1>
       {error && <p className="text-red-500">{error}</p>}
       {loading ? (
         <Skeleton className="h-8 w-full" />
@@ -60,10 +61,8 @@ const Categories: React.FC = () => {
                 </TableCell>
 
                 <TableCell>
-                  <Link href={`/categories${category.id}`} passHref>
-                    <a className="text-blue-800 hover:underline hover:text-blue-500">
-                      Ver detalhes
-                    </a>
+                  <Link href={`/categories/${category.id}`} passHref>
+                    <i className="fa-solid fa-magnifying-glass "></i>
                   </Link>
                 </TableCell>
               </TableRow>

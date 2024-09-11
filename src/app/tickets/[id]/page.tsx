@@ -8,7 +8,6 @@ import {
   findTicket,
   updateTicket,
   IUpdateTicket,
-  ITicket,
   IStatus,
   deleteTicket,
   getAllStatuses,
@@ -49,7 +48,7 @@ type updateTicketFormSchemaType = z.infer<typeof updateTicketFormSchema>
 const TicketProfile: React.FC = () => {
   const params = useParams()
   const id = Array.isArray(params.id) ? params.id[0] : params.id
-  const [data, setData] = useState<ITicket>()
+  const [data, setData] = useState<IUpdateTicket>()
   const [statuses, setStatuses] = useState<IStatus[]>([])
   const [categories, setCategories] = useState<ICategory[]>([])
   const [loading, setLoading] = useState<boolean>(true)
@@ -113,7 +112,12 @@ const TicketProfile: React.FC = () => {
         if (!('errorMessage' in ticket && 'status' in ticket)) {
           setData(ticket)
         }
-        if (Array.isArray(statuses)) setStatuses(statuses)
+        if (Array.isArray(statuses)) {
+          const filteredStatuses = statuses.filter(
+            (status) => status.name !== 'novo',
+          )
+          setStatuses(filteredStatuses)
+        }
         if (Array.isArray(categories)) setCategories(categories)
         if (ticket && !('errorMessage' in ticket)) {
           setValue('title', ticket.title)
@@ -209,10 +213,10 @@ const TicketProfile: React.FC = () => {
               <Select
                 disabled={!editMode}
                 onValueChange={(value) => setValue('category_id', value)}
-                defaultValue={data?.category_id}
+                value={updateTicketForm.watch('category_id')}
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="Select category" />
+                  <SelectValue placeholder="Selecione uma categoria" />
                 </SelectTrigger>
                 <SelectContent>
                   {categories.map((category) => (
@@ -231,10 +235,10 @@ const TicketProfile: React.FC = () => {
               <Select
                 disabled={!editMode}
                 onValueChange={(value) => setValue('status_id', value)}
-                defaultValue={data?.status_id || ''}
+                value={updateTicketForm.watch('status_id')} // Controlled value
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="Select status" />
+                  <SelectValue placeholder="Selecione um status" />
                 </SelectTrigger>
                 <SelectContent>
                   {statuses.map((status) => (

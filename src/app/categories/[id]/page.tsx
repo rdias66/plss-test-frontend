@@ -77,6 +77,7 @@ const CategoryProfile = () => {
           description: 'Categoria editada com sucesso!',
           duration: 3000,
         })*/
+
         console.log('success')
         setEditMode(false)
       }

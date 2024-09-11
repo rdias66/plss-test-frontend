@@ -79,11 +79,6 @@ export default function Home() {
           <CardContent>
             {newTickets.length > 0 ? (
               <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableCell>Title</TableCell>
-                  </TableRow>
-                </TableHeader>
                 <TableBody>
                   {newTickets.map((ticket) => (
                     <TableRow key={ticket.id}>
@@ -103,11 +98,6 @@ export default function Home() {
           <CardContent>
             {pendingTickets.length > 0 ? (
               <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableCell>Title</TableCell>
-                  </TableRow>
-                </TableHeader>
                 <TableBody>
                   {pendingTickets.map((ticket) => (
                     <TableRow key={ticket.id}>
@@ -127,11 +117,6 @@ export default function Home() {
           <CardContent>
             {resolvedTickets.length > 0 ? (
               <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableCell>Title</TableCell>
-                  </TableRow>
-                </TableHeader>
                 <TableBody>
                   {resolvedTickets.map((ticket) => (
                     <TableRow key={ticket.id}>

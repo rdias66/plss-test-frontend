@@ -59,7 +59,7 @@ const Tickets: React.FC = () => {
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold mb-4">Ticket List</h1>
+      <h1 className="text-2xl font-semibold mb-4">Chamados</h1>
       {error && <p className="text-red-500">{error}</p>}
       {loading ? (
         <Skeleton className="h-8 w-full" />
@@ -95,9 +95,7 @@ const Tickets: React.FC = () => {
                 </TableCell>
                 <TableCell>
                   <Link href={`/tickets/${ticket.id}`} passHref>
-                    <a className="text-blue-800 hover:underline hover:text-blue-500">
-                      Ver detalhes
-                    </a>
+                    <i className="fa-solid fa-magnifying-glass "></i>
                   </Link>
                 </TableCell>
               </TableRow>
