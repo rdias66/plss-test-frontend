@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export const backendApi = axios.create({
-  baseURL: 'http://localhost:8080/api',
+  baseURL: 'https://api.rdias66.codes',
   maxBodyLength: 2.5 * 1024 * 1024 * 1024,
   timeout: 20 * 60 * 1000,
 })
