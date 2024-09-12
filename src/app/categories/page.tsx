@@ -36,7 +36,7 @@ const Categories: React.FC = () => {
     fetchCategories()
   })
   return (
-    <div>
+    <div className="">
       <h1 className="text-2xl font-semibold mb-4">Categorias</h1>
       {error && <p className="text-red-500">{error}</p>}
       {loading ? (

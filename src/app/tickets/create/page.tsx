@@ -23,6 +23,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { toast } from '@/hooks/use-toast'
 
 const createTicketFormSchema = z.object({
   title: z.string().min(1, 'Um titulo é requerido'),
@@ -68,23 +69,32 @@ const CreateTicket: React.FC = () => {
     try {
       const response = await createTicket(newTicket)
       if (!response || ('errorMessage' in response && 'status' in response)) {
-        console.log('Failed to create ticket')
+        toast({
+          title: 'Erro na criação ',
+          description: 'Erro ao  criar chamado no servidor',
+        })
       } else {
-        console.log('Ticket created successfully')
+        toast({
+          title: 'Sucesso na criação ',
+          description: 'Sucesso ao  criar chamado',
+        })
       }
     } catch (error) {
-      console.error('Error creating ticket:', error)
+      toast({
+        title: 'Erro na criação ',
+        description: 'Erro ao  tentar criar chamado',
+      })
     }
   }
 
   return (
-    <div>
+    <div className="rounded-2xl bg-zinc-900 m-4 h-full p-4">
       <h1>Criar novo chamado</h1>
       <Separator />
       <Form {...createTicketForm}>
         <form onSubmit={handleSubmit(onSubmitCreate)} className="space-y-4">
           <FormItem>
-            <FormLabel>Title</FormLabel>
+            <FormLabel>Titulo</FormLabel>
             <FormControl>
               <Input placeholder="Digite um titulo..." {...register('title')} />
             </FormControl>
@@ -94,6 +104,7 @@ const CreateTicket: React.FC = () => {
             <FormLabel>Descrição</FormLabel>
             <FormControl>
               <Input
+                className="h-24 w-full"
                 placeholder="Digite uma descrição..."
                 {...register('description')}
               />
@@ -118,7 +129,12 @@ const CreateTicket: React.FC = () => {
             </FormControl>
           </FormItem>
 
-          <Button type="submit">Criar Chamado</Button>
+          <Button
+            type="submit"
+            className="bg-zinc-400 text-black hover:bg-slate-900 hover:text-white"
+          >
+            Criar Chamado
+          </Button>
         </form>
       </Form>
     </div>

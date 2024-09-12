@@ -25,12 +25,10 @@ export default function Home() {
   const [statuses, setStatuses] = useState<IStatus[]>([])
 
   useEffect(() => {
-    // Fetch SLA metric
     getSLA()
       .then((response) => setSlaMetric(response.sla_percentage))
       .catch((error) => console.error('Error fetching SLA metric:', error))
 
-    // Fetch statuses and tickets
     getAllStatuses()
       .then((statusesResponse) => {
         if (!('errorMessage' in statusesResponse)) {
@@ -60,11 +58,13 @@ export default function Home() {
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
 
-      <Card className="mb-8">
+      <Card className="mb-8 p-4 bg-zinc-900 text-white">
         <CardTitle>Métrica SLA</CardTitle>
-        <CardContent>
+        <CardContent className="p-2">
           {slaMetric !== null ? (
-            <p className="text-lg">Porcentagem SLA: {slaMetric}%</p>
+            <p className="text-lg">
+              Porcentagem SLA: {slaMetric ? slaMetric : 0} %
+            </p>
           ) : (
             <div className="flex justify-center items-center p-4">
               Carregando...
@@ -74,9 +74,9 @@ export default function Home() {
       </Card>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card>
+        <Card className="mb-8 p-4 bg-zinc-900 text-white">
           <CardTitle>Novos Chamados</CardTitle>
-          <CardContent>
+          <CardContent className="p-2">
             {newTickets.length > 0 ? (
               <Table>
                 <TableBody>
@@ -93,9 +93,9 @@ export default function Home() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="mb-8 p-4 bg-zinc-900 text-white">
           <CardTitle>Chamados Pendentes</CardTitle>
-          <CardContent>
+          <CardContent className="p-2">
             {pendingTickets.length > 0 ? (
               <Table>
                 <TableBody>
@@ -112,9 +112,9 @@ export default function Home() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="mb-8 p-4 bg-zinc-900 text-white">
           <CardTitle>Chamados resolvidos</CardTitle>
-          <CardContent>
+          <CardContent className="p-2">
             {resolvedTickets.length > 0 ? (
               <Table>
                 <TableBody>

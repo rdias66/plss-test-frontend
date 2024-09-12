@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
 import Script from 'next/script'
+import { Toaster } from '@/components/ui/toaster'
 import { DashBoard } from '@/app/dashboard'
 
 export const metadata: Metadata = {
@@ -27,6 +28,7 @@ export default function RootLayout({
         <section className="relative">
           <DashBoard />
           <main className="pb-20 ml-0 lg:mb-0 lg:ml-64">{children}</main>
+          <Toaster />
         </section>
       </body>
     </html>

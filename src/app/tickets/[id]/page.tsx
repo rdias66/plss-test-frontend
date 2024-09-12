@@ -36,6 +36,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { toast } from '@/hooks/use-toast'
 
 const updateTicketFormSchema = z.object({
   title: z.string().optional(),
@@ -80,24 +81,40 @@ const TicketProfile: React.FC = () => {
       const response = await updateTicket(id, updatedTicket)
 
       if (!response || ('errorMessage' in response && 'status' in response)) {
-        console.log('error')
+        toast({
+          title: 'Erro na edição',
+          description: 'Erro ao editar chamado no servidor',
+        })
       }
 
       if (response && !('errorMessage' in response && 'status' in response)) {
-        console.log('success')
-        setEditMode(false)
+        toast({
+          title: 'Sucesso',
+          description: 'Chamado editada com sucesso!',
+          duration: 3000,
+        })
       }
     } catch (error) {
-      console.log(error)
+      toast({
+        title: 'Erro na edição',
+        description: 'Erro ao tentar editar chamado',
+      })
     }
   }
 
   const handleDelete = async () => {
     try {
       await deleteTicket(id)
-      console.log('Ticket deleted successfully')
+      toast({
+        title: 'Chamado excluído',
+        description: 'Chamado excluído com sucesso!',
+        duration: 3000,
+      })
     } catch (error) {
-      console.log(error)
+      toast({
+        title: 'Erro na exclusão',
+        description: 'Erro ao excluir chamado',
+      })
     }
   }
 
@@ -126,7 +143,10 @@ const TicketProfile: React.FC = () => {
           setValue('category_id', ticket.category_id)
         }
       } catch (error) {
-        setError('Failed to fetch data: ' + error)
+        toast({
+          title: 'Erro ao coletar dados',
+          description: 'Erro ao coletar dados dos chamados',
+        })
       } finally {
         setLoading(false)
       }
@@ -136,7 +156,7 @@ const TicketProfile: React.FC = () => {
   }, [id, setValue])
 
   return (
-    <div className="rounded-2xl bg-white m-4 h-full">
+    <div className="rounded-2xl bg-zinc-900 p-4 m-4 h-full">
       <div className="flex flex-row items-start p-2 ">
         <h1 className="font-bold text-xl ml-3 mt-3">
           Chamado - {data?.title}{' '}
@@ -254,10 +274,16 @@ const TicketProfile: React.FC = () => {
           <Separator className="my-6" />
 
           <div className="flex items-center justify-end m-4 pb-4">
-            <Button type="submit" className="mr-2" disabled={!editMode}>
+            <Button
+              type="submit"
+              variant={'outline'}
+              className="mr-2 bg-zinc-600 text-black hover:bg-slate-900 hover:text-white"
+              disabled={!editMode}
+            >
               Salvar
             </Button>
             <Button
+              className="hover:bg-red-900 hover:text-white"
               variant="outline"
               onClick={() => {
                 setEditMode(false)

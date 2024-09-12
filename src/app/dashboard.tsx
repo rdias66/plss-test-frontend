@@ -5,7 +5,7 @@ export function DashBoard() {
   return (
     <nav
       aria-label="Sidebar dashboard"
-      className="z-10 fixed left-0 bottom-0 w-full h-12 rounded-t-2xl lg:rounded-tl-none lg:rounded-r-2xl lg:left-0 lg:bottom-auto lg:w-60 lg:h-full lg:flex lg:flex-col bg-white text-zinc-900 shadow-soft-bottom shadow-zinc-600 border border-orange-300 "
+      className="z-10 fixed left-0 bottom-0 w-full h-12 rounded-t-2xl lg:rounded-tl-none lg:rounded-r-2xl lg:left-0 lg:bottom-auto lg:w-60 lg:h-full lg:flex lg:flex-col bg-zinc-900 text-white shadow-soft-bottom shadow-zinc-600 border border-white "
     >
       <ul className="flex flex-row items-center justify-around mt-3 lg:flex-col lg:items-start lg:mx-auto lg:my-24 lg:space-y-5">
         <Link

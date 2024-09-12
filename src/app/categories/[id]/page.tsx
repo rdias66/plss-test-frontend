@@ -33,6 +33,7 @@ import {
 } from '@/components/ui/alert-dialog'
 import { Separator } from '@/components/ui/separator'
 import { Input } from '@/components/ui/input'
+import { toast } from '@/hooks/use-toast'
 
 const updateCategoryFormSchema = z.object({
   name: z.string(),
@@ -64,25 +65,26 @@ const CategoryProfile = () => {
       const response = await updateCategory(id, updatedCategory)
 
       if (!response || ('errorMessage' in response && 'status' in response)) {
-        /*toast({
+        toast({
           title: 'Erro na edição',
-          description: 'Erro ao editar categoria',
-        })*/
-        console.log('error')
+          description: 'Erro ao editar categoria no servidor',
+        })
       }
 
       if (response && !('errorMessage' in response && 'status' in response)) {
-        /*toast({
+        toast({
           title: 'Sucesso',
           description: 'Categoria editada com sucesso!',
           duration: 3000,
-        })*/
+        })
 
-        console.log('success')
         setEditMode(false)
       }
     } catch (error) {
-      console.log(error)
+      toast({
+        title: 'Erro na edição',
+        description: 'Erro ao tentar editar categoria',
+      })
     }
   }
 
@@ -90,17 +92,16 @@ const CategoryProfile = () => {
     try {
       await deleteCategory(id)
 
-      /* toast({
+      toast({
         title: 'Categoria excluída',
         description: 'Categoria excluída com sucesso!',
         duration: 3000,
-      })*/
+      })
     } catch (error) {
-      /*toast({
+      toast({
         title: 'Erro na exclusão',
-        description: 'Erro ao excluir peça',
-      })*/
-      console.log(error)
+        description: 'Erro ao excluir categoria',
+      })
     }
   }
 
@@ -132,8 +133,8 @@ const CategoryProfile = () => {
 
   return (
     <div>
-      <div className="rounded-2xl bg-white m-4 h-full">
-        <div className="flex flex-row items-start p-2 ">
+      <div className="rounded-2xl bg-zinc-900 m-4 p-4 h-full">
+        <div className="flex flex-row items-start mb-2">
           <h1 className="font-bold text-xl ml-3 mt-3">
             Categoria - {data?.name}{' '}
           </h1>
@@ -203,7 +204,11 @@ const CategoryProfile = () => {
             </div>
 
             <div className="flex items-center justify-end m-4 pb-4">
-              <Button type="submit" className="mr-2" disabled={!editMode}>
+              <Button
+                type="submit"
+                className="mr-2 bg-zinc-300 text-black hover:bg-slate-900 hover:text-white"
+                disabled={!editMode}
+              >
                 Salvar
               </Button>
               <Button
