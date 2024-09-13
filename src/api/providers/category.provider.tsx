@@ -15,7 +15,6 @@ export async function createCategory(
 ): Promise<void | ApiError> {
   try {
     const response = await backendApi.post<void>('/categories', category)
-
     return response.data
   } catch (error) {
     return {
